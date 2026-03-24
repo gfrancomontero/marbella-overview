@@ -14,7 +14,6 @@ export default function Home() {
     <>
       <Hero />
       <Nav />
-      <PhotoCarousel />
       <CoffeeSection />
       <RestaurantsSection />
       <BarsSection />
@@ -22,6 +21,7 @@ export default function Home() {
       <SpasSection />
       <PracticalSection />
       <ItinerarySection />
+      <PhotoCarousel />
       <footer className="py-12 px-6 text-center text-xs text-stone-400 border-t border-stone-200">
         Marbella, {new Date().getFullYear()}. Don&apos;t go to Malaga.
       </footer>
