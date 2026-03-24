@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Marbella Trip — Gonzalo & Taylor",
+  title: "Marbella Trip, April 2026",
   description: "Itinerary, coffee shops, gyms, restaurants & things to do in Marbella",
 };
 
