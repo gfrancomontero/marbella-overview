@@ -9,14 +9,24 @@ export default function BarsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {bars.map((bar) => (
-            <div key={bar.name} className="group">
-              <div className="h-32 bg-stone-100 rounded-lg mb-4 flex items-end p-4 group-hover:bg-stone-200 transition-colors">
-                <h3 className="text-lg font-medium">{bar.name}</h3>
+            <div key={bar.name} className="group rounded-lg border border-stone-200 overflow-hidden hover:border-stone-400 transition-colors">
+              {bar.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={bar.image} alt={bar.name} className="w-full h-36 object-cover" />
+              ) : (
+                <div className="h-36 bg-stone-100 group-hover:bg-stone-200 transition-colors" />
+              )}
+              <div className="p-4">
+                <h3 className="text-base font-medium mb-1">
+                  {bar.url ? (
+                    <a href={bar.url} target="_blank" rel="noopener noreferrer" className="hover:text-amber-700 transition-colors">
+                      {bar.name} ↗
+                    </a>
+                  ) : bar.name}
+                </h3>
+                <p className="text-xs text-stone-500 mb-2">{bar.character}</p>
+                <p className="text-[10px] text-amber-700 uppercase tracking-wider">Best for: {bar.bestFor}</p>
               </div>
-              <p className="text-xs text-stone-500 mb-2">{bar.character}</p>
-              <p className="text-[10px] text-amber-700 uppercase tracking-wider">
-                Best for: {bar.bestFor}
-              </p>
             </div>
           ))}
         </div>

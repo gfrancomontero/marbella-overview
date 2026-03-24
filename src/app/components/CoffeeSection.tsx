@@ -1,41 +1,55 @@
 import { coffeeSpots, upscaleSpots } from "../data/coffee";
 
+function LinkedName({ name, url, className }: { name: string; url?: string; className?: string }) {
+  if (!url) return <span className={className}>{name}</span>;
+  return (
+    <a href={url} target="_blank" rel="noopener noreferrer" className={`${className} hover:text-amber-700 transition-colors`}>
+      {name} ↗
+    </a>
+  );
+}
+
 export default function CoffeeSection() {
   return (
     <section id="coffee" className="py-20 px-6">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-3xl font-light tracking-tight mb-2">Coffee & Work Spots</h2>
         <p className="text-sm text-stone-500 mb-12 max-w-xl">
-          Laptop-friendly cafes with great brunch. Most of these are in and around Marbella
-          old town and San Pedro.
+          Laptop-friendly cafes with great brunch.
         </p>
 
-        {/* Coffee grid — masonry-ish with varying sizes */}
+        {/* Coffee grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
           {coffeeSpots.map((spot, i) => (
             <div
               key={spot.name}
-              className={`group border border-stone-200 rounded-lg p-5 hover:border-amber-400 transition-colors ${
+              className={`group border border-stone-200 rounded-lg overflow-hidden hover:border-amber-400 transition-colors ${
                 i === 0 || i === 6 ? "md:col-span-2" : ""
               }`}
             >
-              <h3 className="font-medium text-sm mb-1">
-                {spot.name}
-                {spot.nearHome && (
-                  <span className="ml-2 text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">
-                    next to apartment
-                  </span>
-                )}
-              </h3>
-              <p className="text-xs text-stone-500">{spot.vibe}</p>
-              {spot.personalNote && (
-                <p className="text-xs text-amber-700 mt-2 italic">{spot.personalNote}</p>
+              {spot.image && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={spot.image} alt={spot.name} className="w-full h-36 object-cover" />
               )}
+              <div className="p-5">
+                <h3 className="font-medium text-sm mb-1 flex items-center gap-2 flex-wrap">
+                  <LinkedName name={spot.name} url={spot.url} />
+                  {spot.nearHome && (
+                    <span className="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">
+                      next to apartment
+                    </span>
+                  )}
+                </h3>
+                <p className="text-xs text-stone-500">{spot.vibe}</p>
+                {spot.personalNote && (
+                  <p className="text-xs text-amber-700 mt-2 italic">{spot.personalNote}</p>
+                )}
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Upscale — horizontal cards */}
+        {/* Upscale */}
         <div className="border-t border-stone-200 pt-12">
           <h3 className="text-lg font-light mb-1">A Step Up</h3>
           <p className="text-xs text-stone-400 mb-8">
@@ -45,13 +59,21 @@ export default function CoffeeSection() {
             {upscaleSpots.map((spot) => (
               <div
                 key={spot.name}
-                className="flex items-start gap-4 border border-stone-200 rounded-lg p-5 hover:border-amber-400 transition-colors"
+                className="border border-stone-200 rounded-lg overflow-hidden hover:border-amber-400 transition-colors"
               >
-                <div className="w-1 h-10 bg-amber-300 rounded-full shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-medium text-sm">{spot.name}</h4>
-                  <p className="text-xs text-stone-500 mt-1">{spot.why}</p>
-                  <p className="text-[10px] text-stone-400 mt-1">{spot.priceBump}</p>
+                {spot.image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={spot.image} alt={spot.name} className="w-full h-40 object-cover" />
+                )}
+                <div className="flex items-start gap-4 p-5">
+                  <div className="w-1 h-10 bg-amber-300 rounded-full shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium text-sm">
+                      <LinkedName name={spot.name} url={spot.url} />
+                    </h4>
+                    <p className="text-xs text-stone-500 mt-1">{spot.why}</p>
+                    <p className="text-[10px] text-stone-400 mt-1">{spot.priceBump}</p>
+                  </div>
                 </div>
               </div>
             ))}

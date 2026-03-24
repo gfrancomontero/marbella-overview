@@ -9,13 +9,17 @@ export default function PracticalSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
           {/* Supermarkets */}
           <div>
-            <h3 className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4">
-              Supermarkets
-            </h3>
+            <h3 className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4">Supermarkets</h3>
             <ul className="space-y-3">
               {supermarkets.map((s) => (
                 <li key={s.name}>
-                  <span className="text-sm font-medium">{s.name}</span>
+                  <span className="text-sm font-medium">
+                    {s.url ? (
+                      <a href={s.url} target="_blank" rel="noopener noreferrer" className="hover:text-amber-700 transition-colors">
+                        {s.name} ↗
+                      </a>
+                    ) : s.name}
+                  </span>
                   <p className="text-xs text-stone-500">{s.personality}</p>
                 </li>
               ))}
@@ -24,30 +28,44 @@ export default function PracticalSection() {
 
           {/* Organic Shops */}
           <div>
-            <h3 className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4">
-              Organic Shops
-            </h3>
-            <ul className="space-y-3">
+            <h3 className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4">Organic Shops</h3>
+            <div className="space-y-4">
               {organicShops.map((s) => (
-                <li key={s.name}>
-                  <span className="text-sm font-medium">{s.name}</span>
-                  <p className="text-xs text-stone-500">{s.what}</p>
-                </li>
+                <div key={s.name} className="bg-white border border-stone-200 rounded-lg overflow-hidden hover:border-green-300 transition-colors">
+                  {s.image && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={s.image} alt={s.name} className="w-full h-28 object-cover" />
+                  )}
+                  <div className="p-3">
+                    <span className="text-sm font-medium">
+                      {s.url ? (
+                        <a href={s.url} target="_blank" rel="noopener noreferrer" className="hover:text-green-700 transition-colors">
+                          {s.name} ↗
+                        </a>
+                      ) : s.name}
+                    </span>
+                    <p className="text-xs text-stone-500 mt-0.5">{s.what}</p>
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Shopping */}
           <div>
-            <h3 className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4">
-              Shopping
-            </h3>
+            <h3 className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4">Shopping</h3>
             <ul className="space-y-3">
               {shoppingCenters.map((s) => (
                 <li key={s.name}>
-                  <span className="text-sm font-medium">{s.name}</span>
+                  <span className="text-sm font-medium">
+                    {s.url ? (
+                      <a href={s.url} target="_blank" rel="noopener noreferrer" className="hover:text-amber-700 transition-colors">
+                        {s.name} ↗
+                      </a>
+                    ) : s.name}
+                  </span>
                   <p className="text-xs text-stone-500">{s.highlights}</p>
                 </li>
               ))}
@@ -56,9 +74,7 @@ export default function PracticalSection() {
 
           {/* Laundry */}
           <div>
-            <h3 className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4">
-              Laundry
-            </h3>
+            <h3 className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4">Laundry</h3>
             <div className="bg-white rounded-lg p-4 border border-stone-200">
               <p className="text-sm font-medium">{laundry.method}</p>
               <p className="text-xs text-stone-500 mt-1">{laundry.frequency} · {laundry.cost}</p>
