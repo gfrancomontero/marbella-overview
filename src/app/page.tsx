@@ -1,5 +1,6 @@
 import Hero from "./components/Hero";
 import Nav from "./components/Nav";
+import PhotoCarousel from "./components/PhotoCarousel";
 import CoffeeSection from "./components/CoffeeSection";
 import RestaurantsSection from "./components/RestaurantsSection";
 import BarsSection from "./components/BarsSection";
@@ -13,6 +14,7 @@ export default function Home() {
     <>
       <Hero />
       <Nav />
+      <PhotoCarousel />
       <CoffeeSection />
       <RestaurantsSection />
       <BarsSection />
@@ -20,6 +22,9 @@ export default function Home() {
       <SpasSection />
       <PracticalSection />
       <ItinerarySection />
+      <footer className="py-12 px-6 text-center text-xs text-stone-400 border-t border-stone-200">
+        Marbella, {new Date().getFullYear()}. Don&apos;t go to Malaga.
+      </footer>
     </>
   );
 }

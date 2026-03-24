@@ -1,6 +1,7 @@
 "use client";
 
 const links = [
+  { label: "Photos", href: "#photos" },
   { label: "Coffee", href: "#coffee" },
   { label: "Restaurants", href: "#restaurants" },
   { label: "Bars", href: "#bars" },
