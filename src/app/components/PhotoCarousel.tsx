@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 
 const photos = Array.from({ length: 36 }, (_, i) =>
   `/fotos_compressed/${String(i + 1).padStart(3, "0")}.jpg`
@@ -10,24 +9,9 @@ const photos = Array.from({ length: 36 }, (_, i) =>
 export default function PhotoCarousel() {
   const [current, setCurrent] = useState(0);
   const [lightbox, setLightbox] = useState(false);
-  const [animating, setAnimating] = useState(false);
-  const [slideDir, setSlideDir] = useState<"left" | "right">("right");
 
-  const go = useCallback(
-    (index: number, dir: "left" | "right") => {
-      if (animating) return;
-      setSlideDir(dir);
-      setAnimating(true);
-      setTimeout(() => {
-        setCurrent((index + photos.length) % photos.length);
-        setAnimating(false);
-      }, 250);
-    },
-    [animating]
-  );
-
-  const prev = useCallback(() => go(current - 1, "left"), [current, go]);
-  const next = useCallback(() => go(current + 1, "right"), [current, go]);
+  const prev = useCallback(() => setCurrent((c) => (c - 1 + photos.length) % photos.length), []);
+  const next = useCallback(() => setCurrent((c) => (c + 1) % photos.length), []);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -58,45 +42,31 @@ export default function PhotoCarousel() {
             style={{ aspectRatio: "16/9" }}
             onClick={() => setLightbox(true)}
           >
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               key={current}
               src={photos[current]}
               alt={`Apartment photo ${current + 1}`}
-              fill
-              className={`object-cover transition-all duration-250 ease-out ${
-                animating
-                  ? slideDir === "right"
-                    ? "opacity-0 translate-x-3"
-                    : "opacity-0 -translate-x-3"
-                  : "opacity-100 translate-x-0"
-              }`}
-              sizes="(max-width: 1024px) 100vw, 960px"
-              priority={current < 3}
+              className="w-full h-full object-cover transition-opacity duration-300"
             />
-            {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent pointer-events-none" />
-            {/* Counter */}
             <div className="absolute bottom-4 right-4 text-xs text-white/70 bg-black/40 px-2.5 py-1 rounded-full backdrop-blur-sm">
               {current + 1} / {photos.length}
             </div>
-            {/* Zoom hint */}
             <div className="absolute top-4 right-4 text-[10px] text-white/40 opacity-0 group-hover:opacity-100 transition-opacity">
               click to expand
             </div>
           </div>
 
-          {/* Arrows */}
           <button
             onClick={(e) => { e.stopPropagation(); prev(); }}
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70 backdrop-blur-sm"
-            aria-label="Previous"
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
           >
             ‹
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); next(); }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70 backdrop-blur-sm"
-            aria-label="Next"
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
           >
             ›
           </button>
@@ -107,21 +77,14 @@ export default function PhotoCarousel() {
           {photos.map((src, i) => (
             <button
               key={src}
-              onClick={() => go(i, i > current ? "right" : "left")}
-              className={`relative shrink-0 rounded overflow-hidden transition-all ${
-                i === current
-                  ? "ring-2 ring-amber-400 opacity-100"
-                  : "opacity-35 hover:opacity-65"
+              onClick={() => setCurrent(i)}
+              className={`shrink-0 rounded overflow-hidden transition-all ${
+                i === current ? "ring-2 ring-amber-400 opacity-100" : "opacity-35 hover:opacity-65"
               }`}
               style={{ width: 68, height: 46 }}
             >
-              <Image
-                src={src}
-                alt={`thumb ${i + 1}`}
-                fill
-                className="object-cover"
-                sizes="68px"
-              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt={`thumb ${i + 1}`} className="w-full h-full object-cover" />
             </button>
           ))}
         </div>
@@ -146,16 +109,14 @@ export default function PhotoCarousel() {
             ‹
           </button>
           <div
-            className="relative w-full max-w-5xl mx-16"
-            style={{ aspectRatio: "16/9" }}
+            className="w-full max-w-5xl mx-16"
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={photos[current]}
               alt={`Apartment ${current + 1}`}
-              fill
-              className="object-contain"
-              sizes="100vw"
+              className="w-full h-auto max-h-[85vh] object-contain"
             />
           </div>
           <button
