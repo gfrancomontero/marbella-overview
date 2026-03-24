@@ -10,7 +10,7 @@ export default function Hero() {
           Marbella
         </h1>
         <p className="mt-4 text-lg md:text-xl text-stone-300 font-light max-w-lg">
-          Gonzalo & Taylor&apos;s guide to coffee, food, fitness, and everything in between.
+          Quick guide to coffee, food, fitness, and everything in between.
         </p>
         <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-xs text-stone-400">
           <span>EST 9–5 → 3pm–11pm local</span>
