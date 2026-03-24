@@ -57,7 +57,7 @@ export const spas: Spa[] = [
   },
   {
     name: "Hammam Malaga",
-    verdict: "Traditional hammam — the one good reason to break the no-Malaga rule",
+    verdict: "Traditional hammam — worth the 45 min drive",
     location: "Malaga",
   },
 ];

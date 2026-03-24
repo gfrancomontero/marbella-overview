@@ -84,7 +84,7 @@ export const days: ItineraryDay[] = [
 ];
 
 export const groundRules = [
-  "We are not going to Malaga. Exception: Hammam.",
+  "Hammam Malaga is worth the drive — 45 min each way.",
   "Work hours: 3pm–11pm local (9am–5pm Eastern).",
   "Housekeeper comes 2x/week, ~€60/visit.",
   "If Lily joins, Gonzalo moves to his other apartment in downtown and she takes his room in Aloha Gardens.",
